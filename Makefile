@@ -3,7 +3,8 @@ NAME	= philo
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
 
-SRCS	= philo.c utils.c init.c ato.c monitor.c
+SRCS	= philo.c utils.c init.c ato.c philos_monitor.c threads_monitor.c \
+		  parse.c status.c
 OBJS	= $(SRCS:.c=.o)
 
 ifdef DEBUG
