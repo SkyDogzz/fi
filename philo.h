@@ -6,7 +6,7 @@
 /*   By: skydogzz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 00:36:39 by skydogzz          #+#    #+#             */
-/*   Updated: 2025/02/07 14:25:03 by tstephan         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:22:15 by tstephan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <pthread.h>
 # include <stdio.h>
+# include <stdbool.h>
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
@@ -61,8 +62,8 @@ long long				ft_atoll(const char *s);
 int						ft_atoi(const char *s);
 
 // Init / parsing
-int						parse_args(int argc, char **argv, t_data *data);
-int						init_data(t_data *data);
+bool					parse_args(int argc, char **argv, t_data *data);
+bool					init_data(t_data *data);
 
 // Threads routines
 void					*philosopher_routine(void *arg);
