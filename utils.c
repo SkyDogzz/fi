@@ -6,65 +6,27 @@
 /*   By: tstephan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:15:57 by tstephan          #+#    #+#             */
-/*   Updated: 2025/02/07 14:31:00 by tstephan         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:37:14 by tstephan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_bool	ft_isspace(char c)
+long long	get_time_in_ms(void)
 {
-	return (c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t'
-		|| c == '\v');
+	struct timeval	tv;
+	long long		time_in_ms;
+
+	gettimeofday(&tv, NULL);
+	time_in_ms = tv.tv_sec * 1000LL + tv.tv_usec / 1000;
+	return (time_in_ms);
 }
 
-t_bool	ft_isdigit(char c)
+void	msleep(long long ms)
 {
-	return (c >= '0' && c <= '9');
-}
+	long long	start;
 
-long long	ft_atoll(const char *s)
-{
-	long long	nbr;
-	int			mult;
-
-	nbr = 0;
-	while (ft_isspace(*s))
-		s++;
-	mult = 1;
-	if (*s == '-')
-	{
-		mult = -1;
-		s++;
-	}
-	while (ft_isdigit(*s))
-	{
-		nbr *= 10;
-		nbr += *s - '0';
-		s++;
-	}
-	return (nbr * mult);
-}
-
-int	ft_atoi(const char *s)
-{
-	int	nbr;
-	int	mult;
-
-	nbr = 0;
-	while (ft_isspace(*s))
-		s++;
-	mult = 1;
-	if (*s == '-')
-	{
-		mult = -1;
-		s++;
-	}
-	while (ft_isdigit(*s))
-	{
-		nbr *= 10;
-		nbr += *s - '0';
-		s++;
-	}
-	return (nbr * mult);
+	start = get_time_in_ms();
+	while ((get_time_in_ms() - start) < ms)
+		usleep(100);
 }

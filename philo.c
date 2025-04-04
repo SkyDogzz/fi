@@ -6,30 +6,11 @@
 /*   By: skydogzz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 00:38:18 by skydogzz          #+#    #+#             */
-/*   Updated: 2025/04/04 18:29:35 by tstephan         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:38:55 by tstephan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-long long	get_time_in_ms(void)
-{
-	struct timeval	tv;
-	long long		time_in_ms;
-
-	gettimeofday(&tv, NULL);
-	time_in_ms = tv.tv_sec * 1000LL + tv.tv_usec / 1000;
-	return (time_in_ms);
-}
-
-void	msleep(long long ms)
-{
-	long long	start;
-
-	start = get_time_in_ms();
-	while ((get_time_in_ms() - start) < ms)
-		usleep(100);
-}
 
 void	print_status(t_data *data, int id, char *msg)
 {
@@ -124,55 +105,6 @@ void	*philosopher_routine(void *arg)
 		print_status(data, philo->id, "is sleeping");
 		msleep(data->time_to_sleep);
 		print_status(data, philo->id, "is thinking");
-	}
-	return (NULL);
-}
-
-void	*monitor_routine(void *arg)
-{
-	t_data	*data;
-	int		i;
-	int		finished_count;
-
-	data = (t_data *)arg;
-	while (1)
-	{
-		i = 0;
-		while (i < data->number_of_philosophers)
-		{
-			pthread_mutex_lock(&(data->simulation_mutex));
-			if (!data->simulation_end && (get_time_in_ms()
-					- data->philos[i].last_meal) > data->time_to_die)
-			{
-				print_status(data, data->philos[i].id, "died");
-				data->simulation_end = 1;
-				pthread_mutex_unlock(&(data->simulation_mutex));
-				return (NULL);
-			}
-			pthread_mutex_unlock(&(data->simulation_mutex));
-			i++;
-		}
-		if (data->meals_required != -1)
-		{
-			finished_count = 0;
-			i = 0;
-			while (i < data->number_of_philosophers)
-			{
-				pthread_mutex_lock(&(data->simulation_mutex));
-				if (data->philos[i].meals_eaten >= data->meals_required)
-					finished_count++;
-				pthread_mutex_unlock(&(data->simulation_mutex));
-				i++;
-			}
-			if (finished_count == data->number_of_philosophers)
-			{
-				pthread_mutex_lock(&(data->simulation_mutex));
-				data->simulation_end = 1;
-				pthread_mutex_unlock(&(data->simulation_mutex));
-				return (NULL);
-			}
-		}
-		usleep(1);
 	}
 	return (NULL);
 }
