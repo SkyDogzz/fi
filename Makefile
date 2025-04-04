@@ -1,22 +1,9 @@
-
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: VotreNom <VotreEmail>                        +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/02/07 12:00:00 by VotreNom          #+#    #+#              #
-#    Updated: 2025/02/07 12:00:00 by VotreNom         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME	= philo
 
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
 
-SRCS	= philo.c
+SRCS	= philo.c utils.c
 OBJS	= $(SRCS:.c=.o)
 
 ifdef DEBUG
@@ -41,5 +28,8 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+nm: re
+	nm $(NAME) | grep GLIBC
 
 .PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: skydogzz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 00:36:39 by skydogzz          #+#    #+#             */
-/*   Updated: 2025/02/07 00:36:40 by skydogzz         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:25:03 by tstephan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,24 @@ struct					s_data
 	t_philo				*philos;
 };
 
-//
-// Fonctions utilitaires
-//
+typedef enum e_bool
+{
+	FALSE,
+	TRUE
+}	t_bool;
+
+// Utils
 long long				get_time_in_ms(void);
 void					msleep(long long ms);
 void					print_status(t_data *data, int id, char *msg);
+long long				ft_atoll(const char *s);
+int						ft_atoi(const char *s);
 
-//
-// Fonctions d'initialisation et de parsing des arguments
-//
+// Init / parsing
 int						parse_args(int argc, char **argv, t_data *data);
 int						init_data(t_data *data);
 
-//
-// Routines pour les threads
-//
+// Threads routines
 void					*philosopher_routine(void *arg);
 void					*monitor_routine(void *arg);
 
