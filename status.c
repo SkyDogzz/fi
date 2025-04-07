@@ -18,7 +18,9 @@ void	print_status(t_data *data, int id, char *msg)
 
 	pthread_mutex_lock(&(data->print_mutex));
 	timestamp = get_time_in_ms() - data->start_time;
+	pthread_mutex_lock(&(data->simulation_mutex));
 	if (!data->simulation_end)
 		printf("%lld %d %s\n", timestamp, id, msg);
+	pthread_mutex_unlock(&(data->simulation_mutex));
 	pthread_mutex_unlock(&(data->print_mutex));
 }

@@ -45,7 +45,7 @@ static void	whos_gonna_eat(t_philo *philo)
 	t_data	*data;
 
 	data = philo->data;
-	if (philo->id % 2 == 1)
+	if (philo->id % 2)
 	{
 		pthread_mutex_lock(&(data->forks[philo->left_fork]));
 		print_status(data, philo->id, "has taken a fork");
@@ -98,7 +98,10 @@ void	*philosopher_routine(void *arg)
 	philo = (t_philo *)arg;
 	data = philo->data;
 	if (philo->id % 2 == 0)
+	{
+		print_status(data, philo->id, "is thinking");
 		usleep(1000);
+	}
 	while (1)
 		if (!loop(philo))
 			break ;

@@ -6,7 +6,7 @@
 /*   By: skydogzz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 00:38:18 by skydogzz          #+#    #+#             */
-/*   Updated: 2025/04/04 18:49:25 by tstephan         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:36:01 by tstephan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	main(int argc, char **argv)
 		pthread_mutex_destroy(&(data.forks[i]));
 		i++;
 	}
-	pthread_mutex_destroy(&(data.print_mutex));
 	pthread_mutex_destroy(&(data.simulation_mutex));
+	pthread_mutex_destroy(&(data.print_mutex));
 	free(data.forks);
 	free(data.philos);
 	return (0);

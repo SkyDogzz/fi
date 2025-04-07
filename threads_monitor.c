@@ -23,7 +23,9 @@ static bool	is_someone_dead(t_data *data)
 		if (!data->simulation_end && (get_time_in_ms()
 				- data->philos[i].last_meal) > data->time_to_die)
 		{
+			pthread_mutex_unlock(&(data->simulation_mutex));
 			print_status(data, data->philos[i].id, "died");
+			pthread_mutex_lock(&(data->simulation_mutex));
 			data->simulation_end = 1;
 			pthread_mutex_unlock(&(data->simulation_mutex));
 			return (true);
