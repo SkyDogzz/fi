@@ -6,7 +6,7 @@
 /*   By: skydogzz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 00:36:39 by skydogzz          #+#    #+#             */
-/*   Updated: 2025/04/04 18:51:28 by tstephan         ###   ########.fr       */
+/*   Updated: 2025/04/07 23:32:32 by skydogzz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <stdlib.h>
+# include <limits.h>
 # include <sys/time.h>
 # include <unistd.h>
 
@@ -48,18 +49,12 @@ struct					s_data
 	t_philo				*philos;
 };
 
-typedef enum e_bool
-{
-	FALSE,
-	TRUE
-}	t_bool;
-
 // Utils
 long long				get_time_in_ms(void);
 void					msleep(long long ms);
 void					print_status(t_data *data, int id, char *msg);
-long long				ft_atoll(const char *s);
-int						ft_atoi(const char *s);
+bool					strict_atoll(const char *s, long long *result);
+bool					strict_atoi(const char *s, int *result);
 
 // Init / parsing
 bool					parse_args(int argc, char **argv, t_data *data);

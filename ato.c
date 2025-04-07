@@ -6,65 +6,59 @@
 /*   By: tstephan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 18:35:09 by tstephan          #+#    #+#             */
-/*   Updated: 2025/04/04 18:35:24 by tstephan         ###   ########.fr       */
+/*   Updated: 2025/04/07 23:32:47 by skydogzz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static t_bool	ft_isspace(char c)
+static bool	ft_isspace(char c)
 {
 	return (c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t'
 		|| c == '\v');
 }
 
-static t_bool	ft_isdigit(char c)
+static bool	ft_isdigit(char c)
 {
 	return (c >= '0' && c <= '9');
 }
 
-long long	ft_atoll(const char *s)
+bool	strict_atoll(const char *s, long long *result)
 {
 	long long	nbr;
-	int			mult;
+	int			sign;
 
 	nbr = 0;
-	while (ft_isspace(*s))
+	sign = 1;
+	while (*s && ft_isspace(*s))
 		s++;
-	mult = 1;
-	if (*s == '-')
+	if (*s == '-' || *s == '+')
 	{
-		mult = -1;
+		if (*s == '-')
+			sign = -1;
 		s++;
 	}
-	while (ft_isdigit(*s))
+	if (!*s || !ft_isdigit(*s))
+		return (false);
+	while (*s)
 	{
-		nbr *= 10;
-		nbr += *s - '0';
+		if (!ft_isdigit(*s))
+			return (false);
+		nbr = nbr * 10 + (*s - '0');
 		s++;
 	}
-	return (nbr * mult);
+	*result = nbr * sign;
+	return (true);
 }
 
-int	ft_atoi(const char *s)
+bool	strict_atoi(const char *s, int *result)
 {
-	int	nbr;
-	int	mult;
+	long long	tmp;
 
-	nbr = 0;
-	while (ft_isspace(*s))
-		s++;
-	mult = 1;
-	if (*s == '-')
-	{
-		mult = -1;
-		s++;
-	}
-	while (ft_isdigit(*s))
-	{
-		nbr *= 10;
-		nbr += *s - '0';
-		s++;
-	}
-	return (nbr * mult);
+	if (!strict_atoll(s, &tmp))
+		return (false);
+	if (tmp < INT_MIN || tmp > INT_MAX)
+		return (false);
+	*result = (int)tmp;
+	return (true);
 }
