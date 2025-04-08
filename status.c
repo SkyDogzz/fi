@@ -6,13 +6,13 @@
 /*   By: tstephan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 18:51:45 by tstephan          #+#    #+#             */
-/*   Updated: 2025/04/04 18:51:50 by tstephan         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:21:13 by tstephan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_status(t_data *data, int id, char *msg)
+void	print_status(t_data *data, int id, const char *msg)
 {
 	long long	timestamp;
 

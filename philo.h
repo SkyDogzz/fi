@@ -6,7 +6,7 @@
 /*   By: skydogzz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 00:36:39 by skydogzz          #+#    #+#             */
-/*   Updated: 2025/04/07 23:32:32 by skydogzz         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:21:27 by tstephan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ struct					s_data
 // Utils
 long long				get_time_in_ms(void);
 void					msleep(long long ms);
-void					print_status(t_data *data, int id, char *msg);
+void					print_status(t_data *data, int id, const char *msg);
 bool					strict_atoll(const char *s, long long *result);
 bool					strict_atoi(const char *s, int *result);
 
