@@ -6,11 +6,26 @@
 /*   By: tstephan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 18:38:44 by tstephan          #+#    #+#             */
-/*   Updated: 2025/04/04 18:46:53 by tstephan         ###   ########.fr       */
+/*   Updated: 2025/04/09 00:32:46 by skydogzz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static bool	am_i_dead(t_data *data, int i)
+{
+	if (!data->simulation_end && (get_time_in_ms()
+			- data->philos[i].last_meal) > data->time_to_die)
+	{
+		pthread_mutex_unlock(&(data->simulation_mutex));
+		print_status(data, data->philos[i].id, "died");
+		pthread_mutex_lock(&(data->simulation_mutex));
+		data->simulation_end = 1;
+		pthread_mutex_unlock(&(data->simulation_mutex));
+		return (true);
+	}
+	return (false);
+}
 
 static bool	is_someone_dead(t_data *data)
 {
@@ -20,16 +35,14 @@ static bool	is_someone_dead(t_data *data)
 	while (i < data->number_of_philosophers)
 	{
 		pthread_mutex_lock(&(data->simulation_mutex));
-		if (!data->simulation_end && (get_time_in_ms()
-				- data->philos[i].last_meal) > data->time_to_die)
+		if (data->philos[i].finished)
 		{
 			pthread_mutex_unlock(&(data->simulation_mutex));
-			print_status(data, data->philos[i].id, "died");
-			pthread_mutex_lock(&(data->simulation_mutex));
-			data->simulation_end = 1;
-			pthread_mutex_unlock(&(data->simulation_mutex));
-			return (true);
+			i++;
+			continue ;
 		}
+		if (am_i_dead(data, i))
+			return (true);
 		pthread_mutex_unlock(&(data->simulation_mutex));
 		i++;
 	}

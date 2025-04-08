@@ -6,7 +6,7 @@
 /*   By: tstephan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 18:14:48 by tstephan          #+#    #+#             */
-/*   Updated: 2025/04/04 18:33:28 by tstephan         ###   ########.fr       */
+/*   Updated: 2025/04/09 00:22:21 by skydogzz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static void	init_philos(t_data *data)
 		data->philos[i].id = i + 1;
 		data->philos[i].meals_eaten = 0;
 		data->philos[i].last_meal = data->start_time;
+		data->philos[i].finished = false;
 		data->philos[i].data = data;
 		data->philos[i].left_fork = i;
 		data->philos[i].right_fork = (i + 1) % data->number_of_philosophers;

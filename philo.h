@@ -6,7 +6,7 @@
 /*   By: skydogzz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 00:36:39 by skydogzz          #+#    #+#             */
-/*   Updated: 2025/04/08 15:21:27 by tstephan         ###   ########.fr       */
+/*   Updated: 2025/04/09 00:34:27 by skydogzz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_philo
 	int					id;
 	int					meals_eaten;
 	long long			last_meal;
+	bool				finished;
 	pthread_t			thread;
 	int					left_fork;
 	int					right_fork;
@@ -63,5 +64,6 @@ bool					init_data(t_data *data);
 // Threads routines
 void					*philosopher_routine(void *arg);
 void					*monitor_routine(void *arg);
+bool					is_simulation_ended(t_data *data);
 
 #endif
